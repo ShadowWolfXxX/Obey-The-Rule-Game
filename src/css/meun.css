@@ -1,0 +1,44 @@
+/*
+ * Empty Stylesheet file.
+ */
+
+.mainFxmlClass {
+
+}
+
+.background {
+-fx-background-image: url('file:src/image/Cafe.jpg');
+-fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+}
+
+.backgroundS {
+-fx-background-image: url('file:src/image/School.png');
+-fx-background-repeat: no-repeat;
+-fx-background-size:  1300px 750px;
+}
+
+
+
+.meun{
+-fx-background-image: url('file:src/image/Background.png');
+-fx-background-repeat: no-repeat;
+    -fx-background-size: contain;
+    -fx-background-size: 600px 400px;
+    
+}
+
+.slider .track {
+      -fx-background-color: linear-gradient(to right, #2D819D , #969696 );
+          -fx-shadow-highlight-color:
+          linear-gradient(to bottom, derive(-fx-text-box-border, -10%), -fx-text-box-border),
+          linear-gradient(to bottom,
+            derive(-fx-control-inner-background, -9%),
+            derive(-fx-control-inner-background, 0%),
+            derive(-fx-control-inner-background, -5%),
+            derive(-fx-control-inner-background, -12%)
+          );
+    -fx-background-insets: 0 0 -1 0, 0, 1;
+    -fx-background-radius: 0.25em, 0.25em, 0.166667em; /* 3 3 2 */
+    -fx-padding: 0.25em; /* 3 */
+}
