@@ -52,7 +52,7 @@ public class MeunController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {
-            Image image = new Image(new FileInputStream("C:\\Users\\HP\\Documents\\NetBeansProjects\\givemeproject\\src\\image\\curser.png"));  //pass in the image path
+            Image image = new Image(new FileInputStream("C:\\Users\\HP\\Documents\\NetBeansProjects\\givemeproject\\src\\image\\curser.png"));  
             boi.setCursor(new ImageCursor(image));
             AudioBackground.getInstance().makeSong(0.2, "Plante");
         } catch (IOException ex) {

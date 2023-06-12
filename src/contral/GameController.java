@@ -276,7 +276,7 @@ public class GameController implements Initializable {
             fw.close();
             FXMLLoader load3 = new FXMLLoader(getClass().getResource("/view/HighScore.fxml"));
             Scene s = new Scene(load3.load());
-            Image image = new Image(new FileInputStream("C:\\Users\\HP\\Documents\\NetBeansProjects\\givemeproject\\src\\image\\curser.png"));  //pass in the image path
+            Image image = new Image(new FileInputStream("C:\\Users\\HP\\Documents\\NetBeansProjects\\givemeproject\\src\\image\\curser.png"));  
             s.setCursor(new ImageCursor(image));
             st = new Stage();
             st.setScene(s);
