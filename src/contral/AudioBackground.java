@@ -58,7 +58,7 @@ public class AudioBackground extends Thread {
     public void makeSong(double vol, String songNum) {
         Volume = vol;
         playerSong = new MediaPlayer(chooseSong(songNum));
-        run();
+        this.run();
     }
 
     //for option screen to increase o decrease Volume
