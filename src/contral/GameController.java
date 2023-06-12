@@ -60,12 +60,6 @@ public class GameController implements Initializable {
     private Label timer;
     @FXML
     private Label wantit;
-    String order;
-    int currectAnswer = -1;
-    int scoreNum = 0;
-    int personTexuter = 2;
-    static Stage st;
-    File savedScore;
     @FXML
     private VBox HighScoreScreen;
     @FXML
@@ -74,6 +68,16 @@ public class GameController implements Initializable {
     private Button back;
     @FXML
     private Button submitNameBTN;
+
+    String order;
+    int currectAnswer = -1;
+    int scoreNum = 0;
+    int personTexuter = 2;
+    static Stage st;
+    File savedScore;
+    Media eatingSound;
+    Media correctSound;
+    Media failedSound;
 
     /**
      * Initializes the controller class.
@@ -84,23 +88,23 @@ public class GameController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {
-
             HighScoreScreen.setVisible(false);
-            AudioBackground.getInstance().chooseSong(0);
-            AudioBackground.getInstance().Volume(1);
-            AudioBackground.getInstance().run();
-            File ff = new File("C:\\Users\\HP\\Documents\\NetBeansProjects\\givemeproject\\src\\image\\food");
+            AudioBackground.getInstance().makeSong(1, "FoodBackground");
+            File foodAllImage = new File("C:\\Users\\HP\\Documents\\NetBeansProjects\\givemeproject\\src\\image\\food");
             savedScore = new File("C:\\Users\\HP\\Documents\\NetBeansProjects\\givemeproject\\src\\saveFile\\Score.txt");
+            correctSound = new Media(new File(getClass().getResource("/audio/curret.wav").getPath()).toURI().toString());
+            eatingSound = new Media(new File(getClass().getResource("/audio/eating.wav").getPath()).toURI().toString());
+            failedSound = new Media(new File(getClass().getResource("/audio/Wrong.wav").getPath()).toURI().toString());
 
-            resultList = new ArrayList<String>(256);
-            File[] f = ff.listFiles();
-            for (File file : f) {
+            resultList = new ArrayList<>();
+            File[] imageArray = foodAllImage.listFiles();
+            for (File file : imageArray) {
                 resultList.add(file.getCanonicalPath());
             }
             Image img = new Image(new FileInputStream("C:\\Users\\HP\\Documents\\NetBeansProjects\\givemeproject\\src\\image\\Need.png"));
             person.setImage(img);
-            Image img2 = new Image(new FileInputStream("C:\\Users\\HP\\Documents\\NetBeansProjects\\givemeproject\\src\\image\\Start.png"));
-            food2.setImage(img2);
+            Image startCandy = new Image(new FileInputStream("C:\\Users\\HP\\Documents\\NetBeansProjects\\givemeproject\\src\\image\\Start.png"));
+            food2.setImage(startCandy);
 
         } catch (FileNotFoundException ex) {
             Logger.getLogger(GameController.class.getName()).log(Level.SEVERE, null, ex);
@@ -109,44 +113,46 @@ public class GameController implements Initializable {
         }
     }
 
-    private void changeJLabel(final Label label, final int min, final int sec) {
+    private void changeLabel(final Label label, final int min, final int sec) {
 
         Platform.runLater(() -> {
+            //time turn 30 secand left
             if (min == 0 && sec == 30) {
                 try {
-                    AudioBackground.getInstance().chooseSong(1);
-                    AudioBackground.getInstance().Volume(1);
-                    AudioBackground.getInstance().run();
+                    AudioBackground.getInstance().makeSong(1, "HorroFoodBackground");
                     personTexuter *= -1;
                     resultList.clear();
-                    File ff = new File("C:\\Users\\HP\\Documents\\NetBeansProjects\\givemeproject\\src\\image\\HorroFood");
-                    File[] f = ff.listFiles();
-                    for (File file : f) {
+                    File foodAllImage = new File("C:\\Users\\HP\\Documents\\NetBeansProjects\\givemeproject\\src\\image\\HorroFood");
+                    File[] imageArray = foodAllImage.listFiles();
+                    for (File file : imageArray) {
                         resultList.add(file.getCanonicalPath());
                     }
                 } catch (IOException ex) {
                     Logger.getLogger(GameController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
+            
+            //time done
             if (min == 0 && sec == 0) {
                 HighScoreScreen.setVisible(true);
             }
+
+            //Change label text
             label.setText(min + ":" + sec);
         });
     }
 
     public void scorePoint(int btn) {
         if (noSpam) {
-
+            //timer
             Thread thread2 = new Thread() {
                 @Override
                 public void run() {
-                    int mint = 2;
-                    int sec = 30;
+                    int mint = 2 , sec = 30;
                     while (mint >= 0 && sec >= 0) {
                         try {
                             Thread.sleep(1000);
-                            changeJLabel(timer, mint, sec);
+                            changeLabel(timer, mint, sec);
                             if (sec == 0) {
                                 mint--;
                                 sec = 60;
@@ -161,16 +167,14 @@ public class GameController implements Initializable {
             };
 
             if ((currectAnswer == 0 && btn == 0) || (currectAnswer == 1 && btn == 1) || (currectAnswer == 2 && btn == 2)) {
-                Media m1 = new Media(new File(getClass().getResource("/audio/curret.wav").getPath()).toURI().toString());
-                MediaPlayer clickyS1 = new MediaPlayer(m1);
+                MediaPlayer clickyS1 = new MediaPlayer(correctSound);
                 clickyS1.play();
                 clickyS1.setVolume(0.3);
                 scoreNum += 5;
             } else if (currectAnswer == -1) {
                 thread2.start();
             } else {
-                Media m2 = new Media(new File(getClass().getResource("/audio/Wrong.wav").getPath()).toURI().toString());
-                MediaPlayer clickyS2 = new MediaPlayer(m2);
+                MediaPlayer clickyS2 = new MediaPlayer(failedSound);
                 clickyS2.play();
                 clickyS2.setVolume(0.2);
                 scoreNum -= 5;
@@ -206,9 +210,7 @@ public class GameController implements Initializable {
             try {
                 Image img = new Image(new FileInputStream(textuer()));
                 person.setImage(img);
-                Media m = new Media(new File(getClass().getResource("/audio/eating.wav").getPath()).toURI().toString());
-                MediaPlayer clickyS = new MediaPlayer(m);
-
+                MediaPlayer clickyS = new MediaPlayer(eatingSound);
                 clickyS.play();
                 clickyS.setVolume(0.4);
                 PauseTransition wait = new PauseTransition(Duration.seconds(2));
@@ -232,11 +234,9 @@ public class GameController implements Initializable {
     }
 
     public void setFood() throws FileNotFoundException {
-        if (noSpam2) {
-            noSpam2 = false;
-            String[] want = new String[3];
-            int mytTmer = 0;
-            PauseTransition wait = new PauseTransition(Duration.seconds(mytTmer));
+      
+            String[] want = new String[3];            
+            PauseTransition wait = new PauseTransition(Duration.seconds(0));
             wait.setOnFinished((e) -> {
                 Image img[] = new Image[3];
                 String noRepeat = "";
@@ -245,8 +245,8 @@ public class GameController implements Initializable {
                     if (!noRepeat.contains("" + x)) {
                         try {
                             img[i] = new Image(new FileInputStream(resultList.get(x)));
-                            String lol = resultList.get(x).substring(resultList.get(x).lastIndexOf("\\") + 1, resultList.get(x).lastIndexOf("."));
-                            want[i] = lol;
+                            String neededfoodName = resultList.get(x).substring(resultList.get(x).lastIndexOf("\\") + 1, resultList.get(x).lastIndexOf("."));
+                            want[i] = neededfoodName;
                             noRepeat += x + " ";
                         } catch (FileNotFoundException ex) {
                             Logger.getLogger(GameController.class.getName()).log(Level.SEVERE, null, ex);
@@ -261,11 +261,9 @@ public class GameController implements Initializable {
                 food1.setImage(img[0]);
                 food2.setImage(img[1]);
                 food3.setImage(img[2]);
-                noSpam2 = true;
             });
             wait.play();
-        }
-
+        
     }
 
     @FXML
@@ -357,9 +355,7 @@ public class GameController implements Initializable {
 
     @FXML
     private synchronized void goBack(javafx.event.ActionEvent event) throws IOException {
-        AudioBackground.getInstance().chooseSong(-1);
-        AudioBackground.getInstance().Volume(0.2);
-        AudioBackground.getInstance().run();
+        AudioBackground.getInstance().makeSong(0.2, "Plante");
         ChooseController.game.close();
     }
 

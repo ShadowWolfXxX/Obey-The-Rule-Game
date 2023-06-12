@@ -17,11 +17,18 @@ import javafx.stage.StageStyle;
  */
 public class ViewManager extends Stage {
 
-    private Scene meun;
-    private Scene option;
-    private Scene Choose;
+    private final Scene meun;
+    private final Scene option;
+    private final Scene Choose;
     public static ViewManager instance;
 
+    public static ViewManager getInstance() throws IOException {
+        if (instance == null) {
+            instance = new ViewManager();
+        }
+        return instance;
+    }
+    
     private ViewManager() throws IOException {
         FXMLLoader load = new FXMLLoader(getClass().getResource("/view/meun.fxml"));
         meun = new Scene(load.load());
@@ -37,12 +44,7 @@ public class ViewManager extends Stage {
         this.show();
     }
 
-    public static ViewManager getInstance() throws IOException {
-        if (instance == null) {
-            instance = new ViewManager();
-        }
-        return instance;
-    }
+    
 
     public void changeTOChoose() {
         this.setScene(Choose);

@@ -54,9 +54,7 @@ public class MeunController implements Initializable {
         try {
             Image image = new Image(new FileInputStream("C:\\Users\\HP\\Documents\\NetBeansProjects\\givemeproject\\src\\image\\curser.png"));  //pass in the image path
             boi.setCursor(new ImageCursor(image));
-            AudioBackground.getInstance().chooseSong(-1);
-            AudioBackground.getInstance().Volume(0.2);
-            AudioBackground.getInstance().run();
+            AudioBackground.getInstance().makeSong(0.2, "Plante");
         } catch (IOException ex) {
             Logger.getLogger(MeunController.class.getName()).log(Level.SEVERE, null, ex);
         }

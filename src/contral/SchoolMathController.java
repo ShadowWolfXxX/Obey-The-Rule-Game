@@ -65,13 +65,6 @@ public class SchoolMathController implements Initializable {
     private Label score;
     @FXML
     private Label timer;
-    int scoreNum = 0;
-    int randnum1 = 0;
-    int randnum2 = 0;
-    int opreationNumber = 0;
-    int personTexuter = 2;
-    File savedScore;
-    boolean noSpam = true;
     @FXML
     private VBox HighScoreScreen;
     @FXML
@@ -79,6 +72,15 @@ public class SchoolMathController implements Initializable {
     @FXML
     private Button submitNameBTN;
     String wholetext = "";
+    int scoreNum = 0;
+    int randnum1 = 0;
+    int randnum2 = 0;
+    int opreationNumber = 0;
+    int personTexuter = 2;
+    File savedScore;
+    Media correctSound;
+    Media failedSound;
+    boolean noSpam = true;
 
     /**
      * Initializes the controller class.
@@ -90,11 +92,10 @@ public class SchoolMathController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         try {
             HighScoreScreen.setVisible(false);
-            AudioBackground.getInstance().chooseSong(2);
-            AudioBackground.getInstance().Volume(0.2);
-            AudioBackground.getInstance().run();
+            AudioBackground.getInstance().makeSong(0.2, "Mathbackground");
             savedScore = new File("C:\\Users\\HP\\Documents\\NetBeansProjects\\givemeproject\\src\\saveFile\\Score.txt");
-
+            correctSound = new Media(new File(getClass().getResource("/audio/curret.wav").getPath()).toURI().toString());
+            failedSound = new Media(new File(getClass().getResource("/audio/Wrong.wav").getPath()).toURI().toString());
             Image img = new Image(new FileInputStream("C:\\Users\\HP\\Documents\\NetBeansProjects\\givemeproject\\src\\image\\Need.png"));
             person.setImage(img);
         } catch (IOException ex) {
@@ -104,7 +105,7 @@ public class SchoolMathController implements Initializable {
 
     @FXML
     private void doSubmit(ActionEvent event) {
-        wholetext = "";
+        wholetext = ""; //restat the text for new quetion
         checkanswer();
     }
 
@@ -114,7 +115,7 @@ public class SchoolMathController implements Initializable {
             answer.requestFocus();
             answer.end();
         } else {
-            answer.setText(answer.getText().substring(0, answer.getText().length() - 1));
+            answer.setText(answer.getText().substring(0, answer.getText().length() - 1));//get ride of last chacter
             wholetext = wholetext.substring(0, wholetext.length() - 1);
             answer.requestFocus();
             answer.end();
@@ -135,7 +136,7 @@ public class SchoolMathController implements Initializable {
 
         answer.setOnKeyReleased((key) -> {
             if (key.getText().matches("^[0-9]+$") || key.getText().equals("-")) {
-                if (wholetext.length() < 5) {
+                if (wholetext.length() < 5) {//cuz the format can't take more than 5
                     wholetext += key.getText();
                 }
             } else {
@@ -185,12 +186,11 @@ public class SchoolMathController implements Initializable {
             Thread thread2 = new Thread() {
                 @Override
                 public void run() {
-                    int mint = 4;
-                    int sec = 00;
+                    int mint = 4 , sec = 00;
                     while (mint >= 0 && sec >= 0) {
                         try {
                             Thread.sleep(1000);
-                            changeJLabel(timer, mint, sec);
+                            changeLabel(timer, mint, sec);
                             if (sec == 0) {
                                 mint--;
                                 sec = 60;
@@ -213,9 +213,9 @@ public class SchoolMathController implements Initializable {
             } else {
                 finalAnswer = randnum1 / randnum2;
             }
+            
             if (answer.getText().equals(finalAnswer + "")) {
-                Media m1 = new Media(new File(getClass().getResource("/audio/curret.wav").getPath()).toURI().toString());
-                MediaPlayer clickyS1 = new MediaPlayer(m1);
+                MediaPlayer clickyS1 = new MediaPlayer(correctSound);
                 clickyS1.play();
                 clickyS1.setVolume(0.8);
                 scoreNum += 5;
@@ -223,8 +223,7 @@ public class SchoolMathController implements Initializable {
                 thread2.start();
                 answer.setEditable(true);
             } else {
-                Media m2 = new Media(new File(getClass().getResource("/audio/Wrong.wav").getPath()).toURI().toString());
-                MediaPlayer clickyS2 = new MediaPlayer(m2);
+                MediaPlayer clickyS2 = new MediaPlayer(failedSound);
                 clickyS2.play();
                 clickyS2.setVolume(0.2);
                 scoreNum -= 5;
@@ -254,19 +253,19 @@ public class SchoolMathController implements Initializable {
         }
     }
 
-    private void changeJLabel(final Label label, final int min, final int sec) {
+    private void changeLabel(final Label label, final int min, final int sec) {
 
         Platform.runLater(() -> {
+            //if timer 30 secand left
             if (min == 0 && sec == 30) {
                 try {
-                    AudioBackground.getInstance().chooseSong(3);
-                    AudioBackground.getInstance().Volume(1);
-                    AudioBackground.getInstance().run();
+                    AudioBackground.getInstance().makeSong(1, "HorroMathBackground");
                     personTexuter *= -1;
                 } catch (IOException ex) {
                     Logger.getLogger(GameController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
+            //if timer is done
             if (min == 0 && sec == 0) {
                 HighScoreScreen.setVisible(true);
             }
@@ -317,9 +316,7 @@ public class SchoolMathController implements Initializable {
 
     @FXML
     private void goBack(ActionEvent event) throws IOException {
-        AudioBackground.getInstance().chooseSong(-1);
-        AudioBackground.getInstance().Volume(0.2);
-        AudioBackground.getInstance().run();
+        AudioBackground.getInstance().makeSong(0.2, "Plante");
         ChooseController.game.close();
     }
 

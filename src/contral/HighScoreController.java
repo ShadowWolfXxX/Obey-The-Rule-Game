@@ -42,10 +42,8 @@ public class HighScoreController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        try {
-          
+        try {        
             savedScore = new File("C:\\Users\\HP\\Documents\\NetBeansProjects\\givemeproject\\src\\saveFile\\Score.txt");
-
             Scanner sc = new Scanner(savedScore);
             int count = 0;
             while (sc.hasNext()) {
@@ -65,9 +63,7 @@ public class HighScoreController implements Initializable {
     private void done(ActionEvent event) {
         try {
             GameController.st.close();
-            AudioBackground.getInstance().chooseSong(-1);
-            AudioBackground.getInstance().run();
-            AudioBackground.getInstance().Volume(0.2);
+            AudioBackground.getInstance().makeSong(0.2, "Plante");
         } catch (IOException ex) {
             Logger.getLogger(HighScoreController.class.getName()).log(Level.SEVERE, null, ex);
         }
