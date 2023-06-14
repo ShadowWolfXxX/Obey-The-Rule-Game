@@ -94,6 +94,7 @@ public class SchoolMathController implements Initializable {
             HighScoreScreen.setVisible(false);
             AudioBackground.getInstance().makeSong(0.2, "Mathbackground");
             savedScore = new File("C:\\Users\\HP\\Documents\\NetBeansProjects\\givemeproject\\src\\saveFile\\Score.txt");
+            if(!savedScore.exists()){savedScore.createNewFile();}
             correctSound = new Media(new File(getClass().getResource("/audio/curret.wav").getPath()).toURI().toString());
             failedSound = new Media(new File(getClass().getResource("/audio/Wrong.wav").getPath()).toURI().toString());
             Image img = new Image(new FileInputStream("C:\\Users\\HP\\Documents\\NetBeansProjects\\givemeproject\\src\\image\\Need.png"));
