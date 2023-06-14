@@ -69,12 +69,10 @@ public class GameController implements Initializable {
     @FXML
     private Button submitNameBTN;
 
-    String order;
     int currectAnswer = -1;
     int scoreNum = 0;
     int personTexuter = 2;
     static Stage st;
-    File savedScore;
     Media eatingSound;
     Media correctSound;
     Media failedSound;
@@ -90,9 +88,7 @@ public class GameController implements Initializable {
         try {
             HighScoreScreen.setVisible(false);
             AudioBackground.getInstance().makeSong(1, "FoodBackground");
-            File foodAllImage = new File("C:\\Users\\HP\\Documents\\NetBeansProjects\\givemeproject\\src\\image\\food");         
-            savedScore = new File("C:\\Users\\HP\\Documents\\NetBeansProjects\\givemeproject\\src\\saveFile\\Score.txt");
-             if(!savedScore.exists()){savedScore.createNewFile();}
+            File foodAllImage = new File("C:\\Users\\HP\\Documents\\NetBeansProjects\\givemeproject\\src\\image\\food");
             correctSound = new Media(new File(getClass().getResource("/audio/curret.wav").getPath()).toURI().toString());
             eatingSound = new Media(new File(getClass().getResource("/audio/eating.wav").getPath()).toURI().toString());
             failedSound = new Media(new File(getClass().getResource("/audio/Wrong.wav").getPath()).toURI().toString());
@@ -132,7 +128,7 @@ public class GameController implements Initializable {
                     Logger.getLogger(GameController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-            
+
             //time done
             if (min == 0 && sec == 0) {
                 HighScoreScreen.setVisible(true);
@@ -149,7 +145,7 @@ public class GameController implements Initializable {
             Thread thread2 = new Thread() {
                 @Override
                 public void run() {
-                    int mint = 2 , sec = 30;
+                    int mint = 2, sec = 30;
                     while (mint >= 0 && sec >= 0) {
                         try {
                             Thread.sleep(1000);
@@ -235,36 +231,36 @@ public class GameController implements Initializable {
     }
 
     public void setFood() throws FileNotFoundException {
-      
-            String[] want = new String[3];            
-            PauseTransition wait = new PauseTransition(Duration.seconds(0));
-            wait.setOnFinished((e) -> {
-                Image img[] = new Image[3];
-                String noRepeat = "";
-                for (int i = 0; i < 3; i++) {
-                    int x = (int) Math.floor(Math.random() * resultList.size());
-                    if (!noRepeat.contains("" + x)) {
-                        try {
-                            img[i] = new Image(new FileInputStream(resultList.get(x)));
-                            String neededfoodName = resultList.get(x).substring(resultList.get(x).lastIndexOf("\\") + 1, resultList.get(x).lastIndexOf("."));
-                            want[i] = neededfoodName;
-                            noRepeat += x + " ";
-                        } catch (FileNotFoundException ex) {
-                            Logger.getLogger(GameController.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                    } else {
-                        i--;
+
+        String[] want = new String[3];
+        PauseTransition wait = new PauseTransition(Duration.seconds(0));
+        wait.setOnFinished((e) -> {
+            Image img[] = new Image[3];
+            String noRepeat = "";
+            for (int i = 0; i < 3; i++) {
+                int x = (int) Math.floor(Math.random() * resultList.size());
+                if (!noRepeat.contains("" + x)) {
+                    try {
+                        img[i] = new Image(new FileInputStream(resultList.get(x)));
+                        String neededfoodName = resultList.get(x).substring(resultList.get(x).lastIndexOf("\\") + 1, resultList.get(x).lastIndexOf("."));
+                        want[i] = neededfoodName;
+                        noRepeat += x + " ";
+                    } catch (FileNotFoundException ex) {
+                        Logger.getLogger(GameController.class.getName()).log(Level.SEVERE, null, ex);
                     }
+                } else {
+                    i--;
                 }
-                int y = (int) Math.floor(Math.random() * 3);
-                wantit.setText(want[y]);
-                currectAnswer = y;
-                food1.setImage(img[0]);
-                food2.setImage(img[1]);
-                food3.setImage(img[2]);
-            });
-            wait.play();
-        
+            }
+            int y = (int) Math.floor(Math.random() * 3);
+            wantit.setText(want[y]);
+            currectAnswer = y;
+            food1.setImage(img[0]);
+            food2.setImage(img[1]);
+            food3.setImage(img[2]);
+        });
+        wait.play();
+
     }
 
     @FXML
@@ -272,12 +268,14 @@ public class GameController implements Initializable {
         try {
             ChooseController.game.close();
             ViewManager.getInstance().changeTOmeun();
+            File savedScore = new File("C:\\Users\\HP\\Documents\\NetBeansProjects\\givemeproject\\src\\saveFile\\Score.txt");
+            if (!savedScore.exists()) {savedScore.createNewFile();}
             FileWriter fw = new FileWriter(savedScore, true);
             fw.append(HighScoreName.getText() + " " + scoreNum + "\n");
             fw.close();
             FXMLLoader load3 = new FXMLLoader(getClass().getResource("/view/HighScore.fxml"));
             Scene s = new Scene(load3.load());
-            Image image = new Image(new FileInputStream("C:\\Users\\HP\\Documents\\NetBeansProjects\\givemeproject\\src\\image\\curser.png"));  
+            Image image = new Image(new FileInputStream("C:\\Users\\HP\\Documents\\NetBeansProjects\\givemeproject\\src\\image\\curser.png"));
             s.setCursor(new ImageCursor(image));
             st = new Stage();
             st.setScene(s);

@@ -32,8 +32,7 @@ public class HighScoreController implements Initializable {
     private Label score;
     @FXML
     private Button doneBTN;
-    File savedScore;
-    String scoreNum;
+    
 
     /**
      * Initializes the controller class.
@@ -43,7 +42,7 @@ public class HighScoreController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {        
-            savedScore = new File("C:\\Users\\HP\\Documents\\NetBeansProjects\\givemeproject\\src\\saveFile\\Score.txt");
+          File savedScore = new File("C:\\Users\\HP\\Documents\\NetBeansProjects\\givemeproject\\src\\saveFile\\Score.txt");
             Scanner sc = new Scanner(savedScore);
             int count = 0;
             while (sc.hasNext()) {

@@ -77,7 +77,6 @@ public class SchoolMathController implements Initializable {
     int randnum2 = 0;
     int opreationNumber = 0;
     int personTexuter = 2;
-    File savedScore;
     Media correctSound;
     Media failedSound;
     boolean noSpam = true;
@@ -93,8 +92,6 @@ public class SchoolMathController implements Initializable {
         try {
             HighScoreScreen.setVisible(false);
             AudioBackground.getInstance().makeSong(0.2, "Mathbackground");
-            savedScore = new File("C:\\Users\\HP\\Documents\\NetBeansProjects\\givemeproject\\src\\saveFile\\Score.txt");
-            if(!savedScore.exists()){savedScore.createNewFile();}
             correctSound = new Media(new File(getClass().getResource("/audio/curret.wav").getPath()).toURI().toString());
             failedSound = new Media(new File(getClass().getResource("/audio/Wrong.wav").getPath()).toURI().toString());
             Image img = new Image(new FileInputStream("C:\\Users\\HP\\Documents\\NetBeansProjects\\givemeproject\\src\\image\\Need.png"));
@@ -187,7 +184,7 @@ public class SchoolMathController implements Initializable {
             Thread thread2 = new Thread() {
                 @Override
                 public void run() {
-                    int mint = 4 , sec = 00;
+                    int mint = 4, sec = 00;
                     while (mint >= 0 && sec >= 0) {
                         try {
                             Thread.sleep(1000);
@@ -214,7 +211,7 @@ public class SchoolMathController implements Initializable {
             } else {
                 finalAnswer = randnum1 / randnum2;
             }
-            
+
             if (answer.getText().equals(finalAnswer + "")) {
                 MediaPlayer clickyS1 = new MediaPlayer(correctSound);
                 clickyS1.play();
@@ -299,6 +296,8 @@ public class SchoolMathController implements Initializable {
         try {
             ChooseController.game.close();
             ViewManager.getInstance().changeTOmeun();
+            File savedScore = new File("C:\\Users\\HP\\Documents\\NetBeansProjects\\givemeproject\\src\\saveFile\\Score.txt");
+            if(!savedScore.exists()){savedScore.createNewFile();}
             FileWriter fw = new FileWriter(savedScore, true);
             fw.append(HighScoreName.getText() + " " + scoreNum + "\n");
             fw.close();
