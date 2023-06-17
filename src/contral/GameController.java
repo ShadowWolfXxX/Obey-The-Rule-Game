@@ -269,7 +269,9 @@ public class GameController implements Initializable {
             ChooseController.game.close();
             ViewManager.getInstance().changeTOmeun();
             File savedScore = new File("C:\\Users\\HP\\Documents\\NetBeansProjects\\givemeproject\\src\\saveFile\\Score.txt");
-            if (!savedScore.exists()) {savedScore.createNewFile();}
+            if (!savedScore.exists()) {
+                savedScore.createNewFile();
+            }
             FileWriter fw = new FileWriter(savedScore, true);
             fw.append(HighScoreName.getText() + " " + scoreNum + "\n");
             fw.close();
@@ -298,11 +300,13 @@ public class GameController implements Initializable {
 
         food1.setOnMouseReleased(e -> {
             if (noSpam) {
+                if (e.getX() > 320 && e.getX() < 550 && e.getY() > -110 && e.getY() < 80) {
+                    scorePoint(0);
+                    eat();
+                    food1.setImage(null);
+                }
                 food1.setX(0);
                 food1.setY(0);
-                food1.setImage(null);
-                scorePoint(0);
-                eat();
             }
         });
 
@@ -319,13 +323,16 @@ public class GameController implements Initializable {
         });
 
         food2.setOnMouseReleased(e -> {
-            if (noSpam) {
+           if (noSpam) {
+                if (e.getX() > -90 && e.getX() < 230 && e.getY() > -120 && e.getY() < 90) {
+                    scorePoint(1);
+                    eat();
+                    food2.setImage(null);
+                }
                 food2.setX(0);
                 food2.setY(0);
-                food2.setImage(null);
-                scorePoint(1);
-                eat();
             }
+            
         });
 
     }
@@ -341,12 +348,14 @@ public class GameController implements Initializable {
         });
 
         food3.setOnMouseReleased(e -> {
-            if (noSpam) {
+           if (noSpam) {
+                if (e.getX() > -450 && e.getX() < -110 && e.getY() > -110 && e.getY() < 90) {
+                    scorePoint(2);
+                    eat();
+                    food3.setImage(null);
+                }
                 food3.setX(0);
                 food3.setY(0);
-                food3.setImage(null);
-                scorePoint(2);
-                eat();
             }
         });
 

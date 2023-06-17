@@ -109,12 +109,14 @@ public class SchoolMathController implements Initializable {
 
     @FXML
     private void doDelete(ActionEvent event) {
-        if (answer.getText().equals("") || answer.getText().equals("press yes")) {
+        if (answer.getText().equals("") || answer.getText().equals("press yes") || answer.getText().matches("^[a-z]+$")) {
             answer.requestFocus();
             answer.end();
         } else {
             answer.setText(answer.getText().substring(0, answer.getText().length() - 1));//get ride of last chacter
-            wholetext = wholetext.substring(0, wholetext.length() - 1);
+            if (!answer.getText().matches("^[a-z]+$")) {
+                wholetext = wholetext.substring(0, wholetext.length() - 1);
+            }
             answer.requestFocus();
             answer.end();
         }
@@ -133,6 +135,9 @@ public class SchoolMathController implements Initializable {
         }));
 
         answer.setOnKeyReleased((key) -> {
+            if(answer.getText().equals("press yes")){
+                
+            }else{
             if (key.getText().matches("^[0-9]+$") || key.getText().equals("-")) {
                 if (wholetext.length() < 5) {//cuz the format can't take more than 5
                     wholetext += key.getText();
@@ -144,7 +149,9 @@ public class SchoolMathController implements Initializable {
             answer.setText(wholetext);
             answer.requestFocus();
             answer.end();
+        }
         });
+        
     }
 
     public void question() {
@@ -297,7 +304,9 @@ public class SchoolMathController implements Initializable {
             ChooseController.game.close();
             ViewManager.getInstance().changeTOmeun();
             File savedScore = new File("C:\\Users\\HP\\Documents\\NetBeansProjects\\givemeproject\\src\\saveFile\\Score.txt");
-            if(!savedScore.exists()){savedScore.createNewFile();}
+            if (!savedScore.exists()) {
+                savedScore.createNewFile();
+            }
             FileWriter fw = new FileWriter(savedScore, true);
             fw.append(HighScoreName.getText() + " " + scoreNum + "\n");
             fw.close();
