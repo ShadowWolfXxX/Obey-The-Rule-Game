@@ -52,7 +52,7 @@ public class ChooseController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         try {
             //just custom the curser
-            Image image = new Image(new FileInputStream("C:\\Users\\HP\\Documents\\NetBeansProjects\\givemeproject\\src\\image\\curser.png")); 
+            Image image = new Image(new FileInputStream("C:\\Users\\HP\\Documents\\NetBeansProjects\\Obey-The-Rule-Game-master\\src\\image\\curser.png")); 
             root.setCursor(new ImageCursor(image));
         } catch (FileNotFoundException ex) {
             Logger.getLogger(ChooseController.class.getName()).log(Level.SEVERE, null, ex);
@@ -80,7 +80,7 @@ public class ChooseController implements Initializable {
     private void toMathRoom(ActionEvent event) throws IOException {
         FXMLLoader load2 = new FXMLLoader(getClass().getResource("/view/SchoolMath.fxml"));
         Scene s = new Scene(load2.load());
-        Image image = new Image(new FileInputStream("C:\\Users\\HP\\Documents\\NetBeansProjects\\givemeproject\\src\\image\\curser.png"));  
+        Image image = new Image(new FileInputStream("C:\\Users\\HP\\Documents\\NetBeansProjects\\Obey-The-Rule-Game-master\\src\\image\\curser.png"));  
         s.setCursor(new ImageCursor(image));
         game = new Stage();
         game.setScene(s);
