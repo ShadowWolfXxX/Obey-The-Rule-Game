@@ -53,7 +53,7 @@ public class ChooseController implements Initializable {
         try {
             //just custom the curser
             File cur = new File("src\\image\\curser.png");
-            Image image = new Image(cur); 
+            Image image = new Image(cur.toURI().toString()); 
             root.setCursor(new ImageCursor(image));
         } catch (FileNotFoundException ex) {
             Logger.getLogger(ChooseController.class.getName()).log(Level.SEVERE, null, ex);
@@ -82,7 +82,7 @@ public class ChooseController implements Initializable {
         FXMLLoader load2 = new FXMLLoader(getClass().getResource("/view/SchoolMath.fxml"));
         Scene s = new Scene(load2.load());
          File cur = new File("src\\image\\curser.png");
-        Image image = new Image(cur);  
+        Image image = new Image(cur.toURI().toString());  
         s.setCursor(new ImageCursor(image));
         game = new Stage();
         game.setScene(s);
