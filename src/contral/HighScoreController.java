@@ -42,7 +42,7 @@ public class HighScoreController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {        
-          File savedScore = new File("C:\\Users\\HP\\Documents\\NetBeansProjects\\Obey-The-Rule-Game-master\\src\\saveFile\\Score.txt");
+          File savedScore = new File("src\\saveFile\\Score.txt");
             Scanner sc = new Scanner(savedScore);
             int count = 0;
             while (sc.hasNext()) {
