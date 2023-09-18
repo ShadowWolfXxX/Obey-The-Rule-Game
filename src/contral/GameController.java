@@ -88,7 +88,7 @@ public class GameController implements Initializable {
         try {
             HighScoreScreen.setVisible(false);
             AudioBackground.getInstance().makeSong(1, "FoodBackground");
-            File foodAllImage = new File("C:\\Users\\HP\\Documents\\NetBeansProjects\\Obey-The-Rule-Game-master\\src\\image\\food");
+            File foodAllImage = new File("src\\image\\food");
             correctSound = new Media(new File(getClass().getResource("/audio/curret.wav").getPath()).toURI().toString());
             eatingSound = new Media(new File(getClass().getResource("/audio/eating.wav").getPath()).toURI().toString());
             failedSound = new Media(new File(getClass().getResource("/audio/Wrong.wav").getPath()).toURI().toString());
@@ -98,9 +98,9 @@ public class GameController implements Initializable {
             for (File file : imageArray) {
                 resultList.add(file.getCanonicalPath());
             }
-            Image img = new Image(new FileInputStream("C:\\Users\\HP\\Documents\\NetBeansProjects\\Obey-The-Rule-Game-master\\src\\image\\Need.png"));
+            Image img = new Image(new FileInputStream("src\\image\\Need.png"));
             person.setImage(img);
-            Image startCandy = new Image(new FileInputStream("C:\\Users\\HP\\Documents\\NetBeansProjects\\Obey-The-Rule-Game-master\\src\\image\\Start.png"));
+            Image startCandy = new Image(new FileInputStream("src\\image\\Start.png"));
             food2.setImage(startCandy);
 
         } catch (FileNotFoundException ex) {
@@ -119,7 +119,7 @@ public class GameController implements Initializable {
                     AudioBackground.getInstance().makeSong(1, "HorroFoodBackground");
                     personTexuter *= -1;
                     resultList.clear();
-                    File foodAllImage = new File("C:\\Users\\HP\\Documents\\NetBeansProjects\\Obey-The-Rule-Game-master\\src\\image\\HorroFood");
+                    File foodAllImage = new File("src\\image\\HorroFood");
                     File[] imageArray = foodAllImage.listFiles();
                     for (File file : imageArray) {
                         resultList.add(file.getCanonicalPath());
@@ -185,16 +185,16 @@ public class GameController implements Initializable {
         String url = "";
 
         if (personTexuter == 1) {
-            url = "C:\\Users\\HP\\Documents\\NetBeansProjects\\Obey-The-Rule-Game-master\\src\\image\\Need.png";
+            url = "src\\image\\Need.png";
             personTexuter = 2;
         } else if (personTexuter == 2) {
-            url = "C:\\Users\\HP\\Documents\\NetBeansProjects\\Obey-The-Rule-Game-master\\src\\image\\Feed.png";
+            url = "src\\image\\Feed.png";
             personTexuter = 1;
         } else if (personTexuter == -1) {
-            url = "C:\\Users\\HP\\Documents\\NetBeansProjects\\Obey-The-Rule-Game-master\\src\\image\\HorroNeed.png";
+            url = "src\\image\\HorroNeed.png";
             personTexuter = -2;
         } else if (personTexuter == -2) {
-            url = "C:\\Users\\HP\\Documents\\NetBeansProjects\\Obey-The-Rule-Game-master\\src\\image\\HorroFeed.png";
+            url = "src\\image\\HorroFeed.png";
             personTexuter = -1;
         }
 
@@ -268,7 +268,7 @@ public class GameController implements Initializable {
         try {
             ChooseController.game.close();
             ViewManager.getInstance().changeTOmeun();
-            File savedScore = new File("C:\\Users\\HP\\Documents\\NetBeansProjects\\Obey-The-Rule-Game-master\\src\\saveFile\\Score.txt");
+            File savedScore = new File("src\\saveFile\\Score.txt");
             if (!savedScore.exists()) {
                 savedScore.createNewFile();
             }
@@ -277,7 +277,7 @@ public class GameController implements Initializable {
             fw.close();
             FXMLLoader load3 = new FXMLLoader(getClass().getResource("/view/HighScore.fxml"));
             Scene s = new Scene(load3.load());
-            Image image = new Image(new FileInputStream("C:\\Users\\HP\\Documents\\Obey-The-Rule-Game-master\\givemeproject\\src\\image\\curser.png"));
+            Image image = new Image(new FileInputStream("src\\image\\curser.png"));
             s.setCursor(new ImageCursor(image));
             st = new Stage();
             st.setScene(s);
