@@ -94,7 +94,7 @@ public class SchoolMathController implements Initializable {
             AudioBackground.getInstance().makeSong(0.2, "Mathbackground");
             correctSound = new Media(new File(getClass().getResource("/audio/curret.wav").getPath()).toURI().toString());
             failedSound = new Media(new File(getClass().getResource("/audio/Wrong.wav").getPath()).toURI().toString());
-            Image img = new Image(new FileInputStream("C:\\Users\\HP\\Documents\\NetBeansProjects\\givemeproject\\src\\image\\Need.png"));
+            Image img = new Image(new FileInputStream("src\\image\\Need.png"));
             person.setImage(img);
         } catch (IOException ex) {
             Logger.getLogger(SchoolMathController.class.getName()).log(Level.SEVERE, null, ex);
@@ -282,16 +282,16 @@ public class SchoolMathController implements Initializable {
         String url = "";
 
         if (personTexuter == 1) {
-            url = "C:\\Users\\HP\\Documents\\NetBeansProjects\\Obey-The-Rule-Game-master\\src\\image\\Need.png";
+            url = "src\\image\\Need.png";
             personTexuter = 2;
         } else if (personTexuter == 2) {
-            url = "C:\\Users\\HP\\Documents\\NetBeansProjects\\Obey-The-Rule-Game-master\\src\\image\\Feed.png";
+            url = "src\\image\\Feed.png";
             personTexuter = 1;
         } else if (personTexuter == -1) {
-            url = "C:\\Users\\HP\\Documents\\NetBeansProjects\\Obey-The-Rule-Game-master\\src\\image\\HorroNeed.png";
+            url = "src\\image\\HorroNeed.png";
             personTexuter = -2;
         } else if (personTexuter == -2) {
-            url = "C:\\Users\\HP\\Documents\\NetBeansProjects\\Obey-The-Rule-Game-master\\src\\image\\HorroFeed.png";
+            url = "src\\image\\HorroFeed.png";
             personTexuter = -1;
         }
 
@@ -303,7 +303,7 @@ public class SchoolMathController implements Initializable {
         try {
             ChooseController.game.close();
             ViewManager.getInstance().changeTOmeun();
-            File savedScore = new File("C:\\Users\\HP\\Documents\\NetBeansProjects\\Obey-The-Rule-Game-master\\src\\saveFile\\Score.txt");
+            File savedScore = new File("src\\saveFile\\Score.txt");
             if (!savedScore.exists()) {
                 savedScore.createNewFile();
             }
@@ -312,7 +312,7 @@ public class SchoolMathController implements Initializable {
             fw.close();
             FXMLLoader load3 = new FXMLLoader(getClass().getResource("/view/HighScore.fxml"));
             Scene s = new Scene(load3.load());
-            Image image = new Image(new FileInputStream("C:\\Users\\HP\\Documents\\NetBeansProjects\\Obey-The-Rule-Game-master\\src\\image\\curser.png"));  //pass in the image path
+            Image image = new Image(new FileInputStream("src\\image\\curser.png"));  //pass in the image path
             s.setCursor(new ImageCursor(image));
             st = new Stage();
             st.setScene(s);
