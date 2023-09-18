@@ -42,7 +42,7 @@ public class HighScoreController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {        
-          File savedScore = new File("src\\saveFile\\Score.txt");
+          File savedScore = new File("src\\saveFile\\Score.txt");//put the full path of not working
             Scanner sc = new Scanner(savedScore);
             int count = 0;
             while (sc.hasNext()) {
