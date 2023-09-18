@@ -5,6 +5,7 @@
  */
 package contral;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -50,14 +51,9 @@ public class ChooseController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        try {
-            //just custom the curser
-            File cur = new File("src\\image\\curser.png");
-            Image image = new Image(cur.toURI().toString()); 
-            root.setCursor(new ImageCursor(image));
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(ChooseController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        File cur = new File("src\\image\\curser.png");
+        Image image = new Image(cur.toURI().toString());
+        root.setCursor(new ImageCursor(image));
     }
 
     @FXML
@@ -69,7 +65,7 @@ public class ChooseController implements Initializable {
     private void toRestFood(ActionEvent event) throws IOException {
         FXMLLoader load2 = new FXMLLoader(getClass().getResource("/view/Game.fxml"));
         Scene s = new Scene(load2.load());
-        Image image = new Image(new FileInputStream("C:\\Users\\HP\\Documents\\NetBeansProjects\\givemeproject\\src\\image\\curser.png"));  
+        Image image = new Image(new FileInputStream("src\\image\\curser.png"));  
         s.setCursor(new ImageCursor(image));
         game = new Stage();
         game.setScene(s);
