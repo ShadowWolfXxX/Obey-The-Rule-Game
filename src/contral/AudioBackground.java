@@ -23,7 +23,7 @@ public class AudioBackground extends Thread {
     double Volume = 0;
     double VolumePicker = 0;
     boolean mute = false;
-
+    String songName = "no";
     
     //singleton
     public static AudioBackground getInstance() throws IOException {
@@ -56,7 +56,8 @@ public class AudioBackground extends Thread {
 
     //choose song and Volume then run the thread
     public void makeSong(double vol, String songNum) {
-        if(!(Volume == vol)){
+        if(!(songName.equals(songNum))){
+        songName = songNum;     
         Volume = vol;
         playerSong = new MediaPlayer(chooseSong(songNum));
         this.run();
