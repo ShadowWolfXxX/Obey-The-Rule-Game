@@ -52,7 +52,8 @@ public class MeunController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {
-            Image image = new Image(new FileInputStream("C:\\Users\\HP\\Documents\\NetBeansProjects\\Obey-The-Rule-Game-master\\src\\image\\curser.png"));  
+            File cur = new File("src\\image\\curser.png");
+            Image image = new Image(cur.toURI().toString()); 
             boi.setCursor(new ImageCursor(image));
             AudioBackground.getInstance().makeSong(0.2, "Plante");
         } catch (IOException ex) {
@@ -79,7 +80,8 @@ public class MeunController implements Initializable {
     private void highScore(ActionEvent event) throws FileNotFoundException, IOException {
         FXMLLoader load3 = new FXMLLoader(getClass().getResource("/view/HighScore.fxml"));
         Scene s = new Scene(load3.load());
-        Image image = new Image(new FileInputStream("C:\\Users\\HP\\Documents\\NetBeansProjects\\Obey-The-Rule-Game-master\\src\\image\\curser.png"));  //pass in the image path
+        File cur = new File("src\\image\\curser.png");
+        Image image = new Image(cur.toURI().toString());  //pass in the image path
         s.setCursor(new ImageCursor(image));
         st = new Stage();
         st.setScene(s);
